@@ -8,7 +8,7 @@ function App() {
   const [winner, setWinner] = useState(null);
   const [playerId, setPlayerId] = useState(null);
   const [players, setPlayers] = useState(0);
-  let player = playerId == 1 ? "X" : "O";
+  let player = playerId == 1 ? "O" : "X";
 
   const { ws, isConnected, connectWebSocket } = useWebSocket({
     onMessage: (data) => {

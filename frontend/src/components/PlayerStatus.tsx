@@ -4,7 +4,7 @@ interface PlayerStatusProps {
 }
 
 const PlayerStatus = ({ playerId, players }: PlayerStatusProps) => {
-  let player = playerId == 1 ? "X" : "O";
+  let player = playerId == 1 ? "O" : "X";
   return (
     <>
       <div className="mt-2">
