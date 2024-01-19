@@ -40,14 +40,14 @@ function sendToAllClients(message) {
   });
 }
 
-function handleMove(data) {
+function handleMove(data, ws) {
+  const playerIndex = players.indexOf(ws);
   const player = playerIndex === 0 ? "X" : "O";
 
   if (player !== currentPlayer || checkWinner() || board[data.index] !== null) {
     console.error("Invalid move:", data);
     return;
   }
-
   board[data.index] = currentPlayer;
   currentPlayer = currentPlayer === "X" ? "O" : "X";
 
@@ -73,7 +73,10 @@ wss.on("connection", (ws) => {
   }
 
   players.push(ws);
+  const playerId = players.indexOf(ws);
 
+  ws.send(JSON.stringify({ type: "PLAYER_ID", id: playerId }));
+  ws.send(JSON.stringify({ type: "BOARD", board }));
 
   ws.on("message", (message) => {
     let data;
